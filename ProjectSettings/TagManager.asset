@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - Shield
+  - Collectible
   layers:
   - Default
   - TransparentFX

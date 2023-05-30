@@ -14,11 +14,14 @@ public class BoulderInitiation : MonoBehaviour
 
     int count = 1;
     GameObject tempObject;
+    SaveAndLoad saveAndLoadScr;
+
     [SerializeField] bool hasSpawned = false;
 
     void Start()
     {
         gameStageScr = FindObjectOfType<GameStage>();
+        saveAndLoadScr = FindObjectOfType<SaveAndLoad>();
     }
 
     // Update is called once per frame
@@ -61,5 +64,7 @@ public class BoulderInitiation : MonoBehaviour
     public void HitPlayer()
     {
         gameOverText.SetActive(true);
+
+        saveAndLoadScr.SaveGame();
     }
 }

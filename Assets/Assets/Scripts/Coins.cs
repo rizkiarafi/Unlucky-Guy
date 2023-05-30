@@ -54,4 +54,19 @@ public class Coins : MonoBehaviour
     {
         hasSpawned = spawn;
     }
+
+    public int GetCoins()
+    {
+        return coinsCount;
+    }
+
+    public void SetCoins(int temp)
+    {
+        coinsCount = temp;
+    }
+
+    public void SetCoinsText(string text)
+    {
+        coinsText.text = text;
+    }
 }

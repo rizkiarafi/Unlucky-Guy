@@ -7,7 +7,9 @@ public class GameStage : MonoBehaviour
     // Start is called before the first frame update
     private PlayerMovement playerMovementScr;
     private Animator playerAnim;
+
     [SerializeField] private bool playingStage;
+    [SerializeField] private GameObject playButton;
 
     void Start()
     {
@@ -20,10 +22,15 @@ public class GameStage : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            playingStage = true;
+            IsPlayingStage();
         }
 
         ChangeGameStage();
+    }
+
+    public void IsPlayingStage()
+    {
+        playingStage = true;
     }
 
     private void ChangeGameStage()
@@ -33,10 +40,12 @@ public class GameStage : MonoBehaviour
             playerAnim.SetBool("isMoving", false);
             playerMovementScr.enabled = false;
             playerMovementScr.FlipSprite(false);
+            playButton.SetActive(false);
         }
         else
         {
             playerMovementScr.enabled = true;
+            playButton.SetActive(true);
         }
     }
 

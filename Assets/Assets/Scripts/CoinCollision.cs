@@ -24,6 +24,7 @@ public class CoinCollision : MonoBehaviour
     private void Update()
     {
         CollectCoin();
+        CollectedByTouch();
         if (gameStageScr.GetStage() == true)
         {
             Destroy(this.gameObject);
@@ -31,16 +32,40 @@ public class CoinCollision : MonoBehaviour
 
     }
 
-    protected virtual void CollectCoin()
+    private void CollectCoin()
     {
         if (Input.GetKeyDown(KeyCode.E) && Vector3.Distance(this.transform.position, player.position) <= 0.5f)
         {
-            Debug.Log(sentence);
-            Destroy(this.gameObject);
-            gameStageScr.SetStage(true);
-            AddEffect();
+            GetCollected();
         }
     }
+
+    private void GetCollected()
+    {
+        Debug.Log(sentence);
+        Destroy(this.gameObject);
+        gameStageScr.SetStage(true);
+        AddEffect();
+    }
+
+    private void CollectedByTouch()
+    {
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        {
+            Vector3 touchPos = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
+
+            RaycastHit2D hit = Physics2D.Raycast(touchPos, Vector3.forward);
+            
+            if (hit.collider != null)
+            {
+                if (hit.transform.tag == "Collectible")
+                {
+                    Debug.Log(hit.collider.name);
+                    GetCollected();
+                }
+            }
+        }
+    }    
 
     protected virtual void AddEffect()
     {
